@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -16,23 +17,42 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: #f7a8b8; /* Warna background pink */
+      background: linear-gradient(135deg, #f7a8b8, #ffd3b6, #ffaaa5);
       font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      position: relative;
     }
 
+    /* Decorasi Konfeti Latar Belakang */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #fff;
+      opacity: 0.8;
+      top: -10px;
+      animation: fall 4s infinite linear;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
+
+    /* Kartu Utama */
     .card {
       position: relative;
-      width: 300px;
-      height: 400px;
+      width: 320px;
+      height: 420px;
       background-color: #fff;
       transform-style: preserve-3d;
-      perspective: 1000px;
-      box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.25);
-      border-radius: 10px;
+      perspective: 1200px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
       cursor: pointer;
     }
 
-    /* Efek animasi terlipat saat diarahkan kursor (hover) */
     .card:hover .cover {
       transform: rotateY(-180deg);
     }
@@ -44,69 +64,101 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: #fafafa;
-      border-radius: 10px;
+      background: linear-gradient(135deg, #ffffff, #fff5f7);
+      border-radius: 12px;
       transform-origin: left;
       transform-style: preserve-3d;
-      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
       z-index: 2;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ffe3e8;
     }
 
     .cover img {
-      width: 180px;
+      width: 170px;
       height: auto;
       margin-top: 15px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
     }
 
     .cover h2 {
-      font-size: 20px;
-      color: #333;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-family: 'Caveat', cursive;
+      font-size: 36px;
+      color: #ff4757;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
     }
 
-    /* Isi Bagian Dalam Kartu */
+    .cover p.tap-hint {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 15px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Bagian Dalam Kartu */
     .details {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      padding: 30px 20px;
+      padding: 30px 25px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      background-color: #ffffff;
-      border-radius: 10px;
+      background: #fafafa;
+      border-radius: 12px;
       z-index: 1;
+      background-image: radial-gradient(#e0e0e0 1px, transparent 0);
+      background-size: 15px 15px;
     }
 
     .details h1 {
-      font-size: 22px;
-      color: #e91e63;
+      font-family: 'Caveat', cursive;
+      font-size: 32px;
+      color: #ff4757;
       margin-bottom: 15px;
+      line-height: 1.1;
     }
 
     .details p {
       font-size: 13px;
-      color: #555;
+      color: #444;
       line-height: 1.6;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .details .sender {
       margin-top: 15px;
+      font-family: 'Caveat', cursive;
+      font-size: 20px;
       font-weight: bold;
-      color: #888;
-      font-size: 12px;
+      color: #ff6b81;
+    }
+
+    /* Efek Lipatan Buku */
+    .details::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 15px;
+      height: 100%;
+      background: linear-gradient(to right, rgba(0,0,0,0.15), transparent);
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
     }
   </style>
 </head>
@@ -117,27 +169,42 @@
     <source src="musik.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Element Konfeti Acak -->
+  <script>
+    const colors = ['#ff4757', '#2ed573', '#1e90ff', '#ffa502', '#ffffff', '#ed4956'];
+    for (let i = 0; i < 40; i++) {
+      let confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDelay = Math.random() * 4 + 's';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.width = Math.random() * 8 + 5 + 'px';
+      confetti.style.height = confetti.style.width;
+      document.body.appendChild(confetti);
+    }
+  </script>
+
   <!-- Kartu Ucapan -->
   <div class="card">
     <!-- Sampul Luar -->
     <div class="cover">
       <h2>Happy Birthday</h2>
-      <!-- Ganti link gambar sesuai ilustrasi yang kamu mau -->
       <img src="https://cdn-icons-png.flaticon.com/512/2488/2488614.png" alt="Birthday Illustration">
+      <p class="tap-hint">✨ Sorot/Sentuh untuk membuka ✨</p>
     </div>
 
-    <!-- Isi Kartu Ulang Tahun -->
+    <!-- Isi Kartu -->
     <div class="details">
       <h1>HAPPY BIRTHDAY TO YOU! 🎉</h1>
       <p>Selamat ulang tahun ya!</p>
       <p>Semoga di usiamu yang baru ini selalu diberikan kesehatan, kebahagiaan, dan kemudahan dalam segala hal.</p>
-      <p>Terima kasih sudah menjadi teman yang luar biasa selama ini! ✨</p>
+      <p>Terima kasih sudah menjadi teman terbaik yang selalu ada! ✨</p>
       <p class="sender">- Dari Sahabatmu</p>
     </div>
   </div>
 
   <script>
-    // Memastikan musik diputar otomatis saat pengguna berinteraksi pertama kali
+    // Memutar audio otomatis saat halaman disentuh/diklik
     document.body.addEventListener('click', function() {
       var music = document.getElementById('bg-music');
       if (music.paused) {
