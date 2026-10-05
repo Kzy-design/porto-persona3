@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday My Best Friend! 🎉</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle, #1a0b2e 0%, #0b071e 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    /* Container Utama */
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Kue Ulang Tahun */
+    .cake-container {
+      position: relative;
+      width: 200px;
+      height: 180px;
+      margin-bottom: 30px;
+    }
+
+    .plate {
+      width: 220px;
+      height: 15px;
+      background: #4a3e56;
+      border-radius: 10px;
+      position: absolute;
+      bottom: 0;
+      left: -10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .layer-bottom {
+      width: 180px;
+      height: 50px;
+      background: #6d2c41;
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      bottom: 15px;
+      left: 10px;
+    }
+
+    .layer-middle {
+      width: 150px;
+      height: 45px;
+      background: #ff8be6;
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      bottom: 65px;
+      left: 25px;
+    }
+
+    .layer-top {
+      width: 120px;
+      height: 40px;
+      background: #ffffff;
+      border-radius: 10px 10px 0 0;
+      position: absolute;
+      bottom: 110px;
+      left: 40px;
+    }
+
+    /* Lilin & Api */
+    .candle {
+      width: 12px;
+      height: 35px;
+      background: linear-gradient(to bottom, #ff3bbf, #ffffff);
+      border-radius: 4px;
+      position: absolute;
+      bottom: 150px;
+      left: 94px;
+    }
+
+    .flame {
+      width: 14px;
+      height: 22px;
+      background: #ffee54;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      bottom: 188px;
+      left: 93px;
+      box-shadow: 0 0 12px #ffee54, 0 0 25px #ff9900;
+      animation: flicker 0.8s infinite alternate ease-in-out;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); }
+      100% { transform: scale(1.15) rotate(2deg); }
+    }
+
+    /* Judul Utama */
+    .greeting {
+      font-family: 'Sacramento', cursive;
+      font-size: 3.2rem;
+      color: #ff8be6;
+      text-shadow: 0 0 12px #ff3bbf, 0 0 25px #ff3bbf;
+      margin-bottom: 15px;
+    }
+
+    /* Pesan Ucapan */
+    .message {
+      max-width: 500px;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #d1c4e9;
+      margin-bottom: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    /* Tombol Interaktif */
+    .btn-celebrate {
+      background: linear-gradient(45deg, #ff3bbf, #8b3bff);
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 59, 191, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-celebrate:hover {
+      transform: translateY(-3deg) scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 59, 191, 0.6);
+    }
+
+    /* Efek Konfeti Sederhana */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #ff3bbf;
+      top: -10px;
+      border-radius: 30%;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <!-- Visual Kue -->
+    <div class="cake-container">
+      <div class="plate"></div>
+      <div class="layer-bottom"></div>
+      <div class="layer-middle"></div>
+      <div class="layer-top"></div>
+      <div class="candle"></div>
+      <div class="flame" id="flame"></div>
+    </div>
+
+    <!-- Teks Ucapan -->
+    <h1 class="greeting">Happy Birthday my Best Friend! 🎉</h1>
+
+    <div class="message">
+      Selamat ulang tahun ya! Terima kasih udah selalu jadi sahabat terbaik yang selalu ada. Semoga di umur yang baru ini makin sukses, sehat selalu, dan semua impian kamu bisa terwujud! 🥳✨
+    </div>
+
+    <!-- Tombol Efek Kejutan -->
+    <button class="btn-celebrate" onclick="celebrate()">Tiup Lilin & Rayakan! 🎂</button>
+  </div>
+
+  <script>
+    function celebrate() {
+      // Matikan api lilin
+      const flame = document.getElementById('flame');
+      flame.style.display = 'none';
+
+      // Buat efek konfeti berjatuhan
+      const colors = ['#ff3bbf', '#8b3bff', '#ffee54', '#00f2fe', '#4facfe'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.opacity = Math.random();
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 4000);
+      }
+
+      alert('Lilin berhasil ditiup! Semoga semua keinginanmu terkabul! ✨');
+    }
+  </script>
+</body>
+</html>
